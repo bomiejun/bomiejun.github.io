@@ -3,7 +3,7 @@ secondary_name: ""
 navbar_name: "Bomie Jun"
 
 positions:
-- logo: /assets/images/badges/MIT_Social_circle.png  # Logo is optional
+- logo: /assets/images/badges/bca_logo.png  # Logo is optional
   name: Bergen County Academies
 
 
@@ -37,21 +37,21 @@ education:
 #     Ph.D. Student
 #   date: Sep. 2024 - present
 - name: Bergen County Academies
-  logo: /assets/images/badges/PKU_red.png
+  logo: /assets/images/badges/bca_logo.png
   position: Academy of Computer Science
   date: Sep. 2022 - present
 
 experience:
 - name: Optimus Health Analytics
-  logo: /assets/images/badges/PKU_red.png
+  logo: /assets/images/badges/optimus_logo.png
   position: Data Analyst
   date: Sept. 2025 - present
 - name: Rutgers WINLAB
-  logo: /assets/images/badges/PKU_red.png
+  logo: /assets/images/badges/rutgers_logo.png
   position: Research Intern
   date: Jun. 2025 - Aug. 2025
 - name: New York Math Circle
-  logo: /assets/images/badges/PKU_red.png
+  logo: /assets/images/badges/nymc_logo.png
   position: Teaching Assistant
   date: July. 2023 - Aug. 2023
 
