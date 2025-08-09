@@ -1,0 +1,90 @@
+---
+layout: default
+title : Artwork
+navbar_title: Artwork
+body_attr: >-
+  data-spy="scroll" data-target="#navbar-year" data-offset="100"
+---
+
+{% assign pubs_by_folder = site.artwork | sort: "path" | group_by_exp: "item", "item.path | split: '/' | slice: 1, 1 | join: '/'" %}
+
+<div class="container my-4">
+    {% for folder in pubs_by_folder %}
+      <h2 class="folder-heading pt-4" id="folder-{{ folder.name }}">{{ folder.name }}</h2>
+  
+      <!-- One horizontally scrollable row per folder -->
+      <div class="folder-row">
+        {% for item in folder.items %}
+          <a class="pub-card" href="{{ item.url | relative_url }}">
+            {% if item.cover %}
+                <img class="pub-cover" src="{{ item.cover | relative_url }}" alt="{{ item.title }}">
+            {% else %}
+              <div class="pub-cover pub-cover--placeholder">No cover</div>
+            {% endif %}
+            <div class="pub-meta">
+              <div class="pub-title" title="{{ item.title }}">{{ item.title }}</div>
+            </div>
+          </a>
+        {% endfor %}
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+    .folder-heading{
+  font-weight: 700;
+  margin-bottom: .5rem;
+}
+
+/* horizontal scroller for each folder */
+.folder-row{
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding: .25rem 0 1rem;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+}
+.folder-row::-webkit-scrollbar{ height: 8px; }
+.folder-row::-webkit-scrollbar-thumb{ background: rgba(0,0,0,.15); border-radius: 8px; }
+
+/* a square-ish card */
+.pub-card{
+  flex: 0 0 180px;              /* card width in the row */
+  scroll-snap-align: start;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* square cover on top */
+.pub-cover{
+  width: 100%;
+  aspect-ratio: 1 / 1;          /* forces a square */
+  object-fit: cover;
+  border-radius: 14px;
+  box-shadow: 0 2px 10px rgba(0,0,0,.06);
+  background: #f3f5f7;
+}
+
+/* fallback if no image */
+.pub-cover--placeholder{
+  display: grid;
+  place-items: center;
+  font-size: .9rem;
+  color: #7a7a7a;
+}
+
+/* title under the cover */
+.pub-meta{ margin-top: .5rem; }
+.pub-title{
+  font-size: .95rem;
+  font-weight: 600;
+  line-height: 1.25;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;        /* clamp to two lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-align: center;
+}
+</style>

@@ -38,4 +38,4 @@ markdown: kramdown
 collections:
   - publications
   - news
-  - showcase
+  - artwork
