@@ -10,81 +10,77 @@ body_attr: >-
 
 <div class="container my-4">
     {% for folder in pubs_by_folder %}
+      {% assign fs = site.data.covers[folder.name] %}
+      {% assign card_w = fs.card_width | default: 180 %}
+      {% assign aspect = fs.aspect | default: "1 / 1" %}
+  
       <h2 class="folder-heading pt-4" id="folder-{{ folder.name }}">{{ folder.name }}</h2>
   
-      <!-- One horizontally scrollable row per folder -->
+      {% assign sorted_items = folder.items | sort: "order" %}
       <div class="folder-row">
-        {% for item in folder.items %}
-          <a class="pub-card" href="{{ item.url | relative_url }}">
-            {% if item.cover %}
-                <img class="pub-cover" src="{{ item.cover | relative_url }}" alt="{{ item.title }}">
-            {% else %}
-              <div class="pub-cover pub-cover--placeholder">No cover</div>
-            {% endif %}
-            <div class="pub-meta">
-              <div class="pub-title" title="{{ item.title }}">{{ item.title }}</div>
+        {% for item in sorted_items %}
+          {%- comment -%}
+            Only link if an MP4 animation is explicitly provided.
+          {%- endcomment -%}
+          {% assign anim = item.animation %}
+          {% assign has_mp4 = anim and anim contains '.mp4' %}
+  
+          {% if has_mp4 %}
+            {%- assign is_external = anim contains '://' -%}
+            {%- if is_external -%}
+              {% assign href = anim %}
+            {%- else -%}
+              {% assign href = anim | relative_url %}
+            {%- endif -%}
+  
+            <a class="pub-card is-clickable"
+               href="{{ href }}"
+               target="_blank" rel="noopener"
+               style="--card-w: {{ card_w }}px; --aspect: {{ aspect }}; flex: 0 0 var(--card-w);">
+              {% if item.cover %}
+                <img class="pub-cover"
+                     src="{{ item.cover | url_encode | relative_url }}"
+                     alt="{{ item.title }}"
+                     style="aspect-ratio: var(--aspect);">
+              {% else %}
+                <div class="pub-cover pub-cover--placeholder" style="aspect-ratio: var(--aspect);">No cover</div>
+              {% endif %}
+              <div class="pub-meta"><div class="pub-title" title="{{ item.title }}">{{ item.title }}</div></div>
+            </a>
+          {% else %}
+            <div class="pub-card pub-card--disabled"
+                 aria-disabled="true"
+                 style="--card-w: {{ card_w }}px; --aspect: {{ aspect }}; flex: 0 0 var(--card-w);">
+              {% if item.cover %}
+                <img class="pub-cover"
+                     src="{{ item.cover | url_encode | relative_url }}"
+                     alt="{{ item.title }}"
+                     style="aspect-ratio: var(--aspect);">
+              {% else %}
+                <div class="pub-cover pub-cover--placeholder" style="aspect-ratio: var(--aspect);">No cover</div>
+              {% endif %}
+              <div class="pub-meta"><div class="pub-title" title="{{ item.title }}">{{ item.title }}</div></div>
             </div>
-          </a>
+          {% endif %}
         {% endfor %}
       </div>
     {% endfor %}
   </div>
-</div>
-
-<style>
-    .folder-heading{
-  font-weight: 700;
-  margin-bottom: .5rem;
-}
-
-/* horizontal scroller for each folder */
-.folder-row{
-  display: flex;
-  gap: 1rem;
-  overflow-x: auto;
-  padding: .25rem 0 1rem;
-  scroll-snap-type: x proximity;
-  -webkit-overflow-scrolling: touch;
-}
-.folder-row::-webkit-scrollbar{ height: 8px; }
-.folder-row::-webkit-scrollbar-thumb{ background: rgba(0,0,0,.15); border-radius: 8px; }
-
-/* a square-ish card */
-.pub-card{
-  flex: 0 0 180px;              /* card width in the row */
-  scroll-snap-align: start;
-  text-decoration: none;
-  color: inherit;
-}
-
-/* square cover on top */
-.pub-cover{
-  width: 100%;
-  aspect-ratio: 1 / 1;          /* forces a square */
-  object-fit: cover;
-  border-radius: 14px;
-  box-shadow: 0 2px 10px rgba(0,0,0,.06);
-  background: #f3f5f7;
-}
-
-/* fallback if no image */
-.pub-cover--placeholder{
-  display: grid;
-  place-items: center;
-  font-size: .9rem;
-  color: #7a7a7a;
-}
-
-/* title under the cover */
-.pub-meta{ margin-top: .5rem; }
-.pub-title{
-  font-size: .95rem;
-  font-weight: 600;
-  line-height: 1.25;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;        /* clamp to two lines */
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-align: center;
-}
-</style>
+  
+  <style>
+  .folder-heading { font-weight: 700; margin-bottom: .5rem; }
+  .folder-row { display:flex; gap:1rem; overflow-x:auto; padding:.25rem 0 1rem; scroll-snap-type:x proximity; -webkit-overflow-scrolling:touch; }
+  .folder-row::-webkit-scrollbar{ height:8px; }
+  .folder-row::-webkit-scrollbar-thumb{ background:rgba(0,0,0,.15); border-radius:8px; }
+  
+  .pub-card{ flex:0 0 var(--card-w,180px); scroll-snap-align:start; text-decoration:none; color:inherit; }
+  .pub-cover{ width:100%; aspect-ratio:var(--aspect,1 / 1); object-fit:cover; border-radius:14px; box-shadow:0 2px 10px rgba(0,0,0,.06); background:#f3f5f7; transition:transform .15s ease, box-shadow .15s ease; }
+  
+  .is-clickable{ cursor:pointer; }
+  .is-clickable:hover .pub-cover{ transform:translateY(-2px); box-shadow:0 6px 18px rgba(0,0,0,.12); }
+  
+  .pub-card--disabled{ cursor:default; }
+  .pub-meta{ margin-top:.5rem; }
+  .pub-title{ font-size:.95rem; font-weight:600; line-height:1.25; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; text-align:center; }
+  </style>
+  

@@ -1,0 +1,15 @@
+Playlists:
+  card_width: 180     # px
+  aspect: "1 / 1"     # square
+Wallpapers:
+  card_width: 180
+  aspect: "1 / 2"
+Animatics:
+  card_width: 180
+  aspect: "1 / 1"
+Comics:
+  card_width: 240
+  aspect: "2 / 3"     # portrait
+Photography:
+  card_width: 260
+  aspect: "3 / 2"     # landscape
