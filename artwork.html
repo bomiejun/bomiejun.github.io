@@ -19,19 +19,21 @@ body_attr: >-
       {% assign sorted_items = folder.items | sort: "order" %}
       <div class="folder-row">
         {% for item in sorted_items %}
-          {%- comment -%}
-            Only link if an MP4 animation is explicitly provided.
-          {%- endcomment -%}
           {% assign anim = item.animation %}
-          {% assign has_mp4 = anim and anim contains '.mp4' %}
   
-          {% if has_mp4 %}
-            {%- assign is_external = anim contains '://' -%}
-            {%- if is_external -%}
-              {% assign href = anim %}
-            {%- else -%}
-              {% assign href = anim | relative_url %}
-            {%- endif -%}
+          {%- comment -%} decide if it should be clickable {%- endcomment -%}
+          {% assign has_mp4 = false %}
+          {% if anim and anim contains '.mp4' %}
+            {% assign has_mp4 = true %}
+          {% endif %}
+  
+          {% if has_mp4 or item.url %}
+            {%- comment -%} build href (external vs. local) {%- endcomment -%}
+            {% if anim contains '://' %}
+              {% assign href = anim | uri_escape %}
+            {% else %}
+              {% assign href = anim | uri_escape | relative_url %}
+            {% endif %}
   
             <a class="pub-card is-clickable"
                href="{{ href }}"
@@ -39,7 +41,7 @@ body_attr: >-
                style="--card-w: {{ card_w }}px; --aspect: {{ aspect }}; flex: 0 0 var(--card-w);">
               {% if item.cover %}
                 <img class="pub-cover"
-                     src="{{ item.cover | url_encode | relative_url }}"
+                     src="{{ item.cover | uri_escape | relative_url }}"
                      alt="{{ item.title }}"
                      style="aspect-ratio: var(--aspect);">
               {% else %}
@@ -53,7 +55,7 @@ body_attr: >-
                  style="--card-w: {{ card_w }}px; --aspect: {{ aspect }}; flex: 0 0 var(--card-w);">
               {% if item.cover %}
                 <img class="pub-cover"
-                     src="{{ item.cover | url_encode | relative_url }}"
+                     src="{{ item.cover | uri_escape | relative_url }}"
                      alt="{{ item.title }}"
                      style="aspect-ratio: var(--aspect);">
               {% else %}
@@ -68,7 +70,7 @@ body_attr: >-
   </div>
   
   <style>
-  .folder-heading { font-weight: 700; margin-bottom: .5rem; }
+  .folder-heading { font-weight:700; margin-bottom:.5rem; }
   .folder-row { display:flex; gap:1rem; overflow-x:auto; padding:.25rem 0 1rem; scroll-snap-type:x proximity; -webkit-overflow-scrolling:touch; }
   .folder-row::-webkit-scrollbar{ height:8px; }
   .folder-row::-webkit-scrollbar-thumb{ background:rgba(0,0,0,.15); border-radius:8px; }
@@ -80,6 +82,7 @@ body_attr: >-
   .is-clickable:hover .pub-cover{ transform:translateY(-2px); box-shadow:0 6px 18px rgba(0,0,0,.12); }
   
   .pub-card--disabled{ cursor:default; }
+  
   .pub-meta{ margin-top:.5rem; }
   .pub-title{ font-size:.95rem; font-weight:600; line-height:1.25; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; text-align:center; }
   </style>
