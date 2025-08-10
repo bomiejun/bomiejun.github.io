@@ -27,7 +27,7 @@ body_attr: >-
             {% assign has_mp4 = true %}
           {% endif %}
   
-          {% if has_mp4 or item.url %}
+          {% if has_mp4 or item.animation %}
             {%- comment -%} build href (external vs. local) {%- endcomment -%}
             {% if anim contains '://' %}
               {% assign href = anim | uri_escape %}
