@@ -3,9 +3,9 @@ title:          "Precarious"
 date:           2024-03-06 00:21:42 +0800
 selected:       false
 
-caption: "hey"
+precarious: true
 
-animation: https://www.nytimes.com/2024/05/20/learning/wonderful-words-the-winners-of-our-11th-annual-15-second-vocabulary-video-challenge.html
-order: 3
+animation: assets/images/artwork/animatics/PrecariousAnimation.mp4
+order: 1
 cover: /assets/images/artwork/animatics/precarious_cover.jpeg
 ---
