@@ -3,7 +3,7 @@ title:          "Intermittent Explosive Disorder in South Korea: Bridging the Ga
 date:           2024-12-28 00:01:00 +0800
 selected:       false
 pub:            ""
-pub_pre:        "Submitted to Journal of Student Research (JSR)"
+pub_pre:        "Published by Journal of Student Research (JSR)"
 # pub_post:       'Under review.'
 pub_last:       ' <span class="badge badge-pill badge-publication badge-success">Spotlight</span>'
 pub_date:       "2024"
