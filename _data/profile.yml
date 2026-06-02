@@ -32,9 +32,7 @@ portrait_caption: >-
 education:
 - name: Duke University
   logo: /assets/images/badges/duke_logo.png
-  position: >- 
-    Neuroscience and Computer Science <br/>
-    Trinity Arts & Sciences
+  position: Trinity Arts & Sciences
   date: Sep. 2026 - present
 - name: Bergen County Academies
   logo: /assets/images/badges/bca_logo.png
