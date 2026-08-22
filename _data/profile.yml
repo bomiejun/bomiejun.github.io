@@ -19,10 +19,10 @@ linkedin: bomiejun  # Do not include the '@' symbol
 short_bio_text_justify: false
 short_bio: >-
   <p>
-    Hi, my name is Bomie Jun. I'm currently a senior in the Academy of Technology and Computer Science (ATCS) at Bergen County Academies, and I'm passionate about using my skills in STEM to make the world a better place!
+    Hi, my name is Bomie Jun. I'm currently a freshman at Duke University, intending to major in Computer Science and Neuroscience, and I'm passionate about using my skills in STEM to make the world a better place!
   </p>
   <p>
-    I'm particularly interested in Neuroscience and Game Development, and in my free time I enjoy fencing, biking, animation, and origami.
+    I'm particularly interested in Software Engineering, Data Engineering, and Neurotechnology, and in my free time I enjoy fencing, biking, animation, and origami.
   </p>
 
 portrait_url: /assets/images/photos/portrait.jpg
@@ -42,8 +42,8 @@ education:
 experience:
 - name: Optimus Health Analytics
   logo: /assets/images/badges/optimus_logo.png
-  position: Data Analyst
-  date: Sept. 2025 - present
+  position: Data Engineering Intern
+  date: Sept. 2025 - Aug. 2026
 - name: Rutgers WINLAB
   logo: /assets/images/badges/rutgers_logo.png
   position: Research Intern
