@@ -37,5 +37,6 @@ markdown: kramdown
 
 collections:
   - publications
+  - projects
   - news
   - artwork
