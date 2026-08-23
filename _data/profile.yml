@@ -3,8 +3,8 @@ secondary_name: ""
 navbar_name: "Bomie Jun"
 
 positions:
-- logo: /assets/images/badges/bca_logo.png  # Logo is optional
-  name: Bergen County Academies
+- logo: /assets/images/badges/duke_insignia.jpeg  # Logo is optional
+  name: Duke University
 
 
 email: "bomiejun@gmail.com"
